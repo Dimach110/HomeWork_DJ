@@ -1,4 +1,8 @@
+import datetime
+
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse
 
 DATA = {
     'omlet': {
@@ -28,3 +32,51 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
+
+def home_view(request):
+    template_name = 'calculator/home.html'
+    pages = {
+        'Омлет': reverse('omlet'),
+        'Паста': reverse('pasta'),
+        'Бутерброд': reverse('buter')
+    }
+
+    context = {
+        'pages': pages
+    }
+    return render(request, template_name, context)
+
+def quantity_dish(dish, n):
+    dish_quan = {}
+    for d, q in DATA[dish].items():
+        try:
+            dish_quan[d] = q*int(n)
+        except:
+            dish_quan[d] = q
+    return dish_quan
+
+def omlet(request):
+    template_name = 'calculator/index.html'
+    n = request.GET.get('servings', 1)
+    context = {
+        'recipe': quantity_dish('omlet', n)
+    }
+    return render(request, template_name, context)
+
+def pasta(request):
+    template_name = 'calculator/index.html'
+    n = request.GET.get('servings', 1)
+    context = {
+        'recipe': quantity_dish('pasta', n)
+        }
+    return render(request, template_name, context)
+
+def buter(request):
+    template_name = 'calculator/index.html'
+    n = request.GET.get('servings', 1)
+    context = {
+        'recipe': quantity_dish('buter', n)
+    }
+    return render(request, template_name, context)
+
+
