@@ -5,16 +5,16 @@ from django.shortcuts import render
 from django.urls import reverse
 
 DATA = {
-    'omlet': {
+    'омлет': {
         'яйца, шт': 2,
         'молоко, л': 0.1,
         'соль, ч.л.': 0.5,
     },
-    'pasta': {
+    'паста': {
         'макароны, г': 0.3,
         'сыр, г': 0.05,
     },
-    'buter': {
+    'бутерброд': {
         'хлеб, ломтик': 1,
         'колбаса, ломтик': 1,
         'сыр, ломтик': 1,
@@ -38,7 +38,8 @@ def home_view(request):
     pages = {
         'Омлет': reverse('omlet'),
         'Паста': reverse('pasta'),
-        'Бутерброд': reverse('buter')
+        'Бутерброд': reverse('buter'),
+        'Указать блюдо с количеством порций: название блюда\количество': reverse('home'),
     }
 
     context = {
@@ -55,11 +56,25 @@ def quantity_dish(dish, n):
             dish_quan[d] = q
     return dish_quan
 
+# добавил ещё один способ ввода (без параметризованного запроса)
+def dish_find(request, name_dish, n):
+    template_name = 'calculator/index.html'
+    if name_dish in DATA.keys():
+        context = {
+            'recipe': quantity_dish(name_dish, n)
+        }
+        return render(request, template_name, context)
+    else:
+        context = {
+            'recipe': " "
+        }
+        return render(request, template_name, context)
+
 def omlet(request):
     template_name = 'calculator/index.html'
     n = request.GET.get('servings', 1)
     context = {
-        'recipe': quantity_dish('omlet', n)
+        'recipe': quantity_dish('омлет', n)
     }
     return render(request, template_name, context)
 
@@ -67,7 +82,7 @@ def pasta(request):
     template_name = 'calculator/index.html'
     n = request.GET.get('servings', 1)
     context = {
-        'recipe': quantity_dish('pasta', n)
+        'recipe': quantity_dish('паста', n)
         }
     return render(request, template_name, context)
 
@@ -75,7 +90,7 @@ def buter(request):
     template_name = 'calculator/index.html'
     n = request.GET.get('servings', 1)
     context = {
-        'recipe': quantity_dish('buter', n)
+        'recipe': quantity_dish('бутерброд', n)
     }
     return render(request, template_name, context)
 
