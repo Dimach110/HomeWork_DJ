@@ -26,6 +26,8 @@ urlpatterns = [
     path('pasta/', pasta, name='pasta'),
     path('buter/', buter, name='buter'),
     path('admin/', admin.site.urls),
-    path('<name_dish>/<n>', dish_find)
+    path('<name_dish>/<n>', dish_find),
+    # path('dish/<dish>/<n>/', dish_find2, name='dish'),
+    # path('', home)
 
 ]

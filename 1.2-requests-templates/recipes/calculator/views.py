@@ -94,4 +94,13 @@ def buter(request):
     }
     return render(request, template_name, context)
 
-
+# Ещё один способ вызова
+# def home(request):
+#     reversed_url = reverse('dish', kwargs={'dish': 'Omlet', 'n': 15})
+#     msg = f'<a href="{reversed_url}">Указать блюдо с количеством порций: \dishназвание блюдаколичество</a>'
+#     return HttpResponse(msg)
+#
+# def dish_find2(request, dish, n):
+#     # здесь должна быть Ваша логика по обработке рецепта
+#     msg = f'Параметры: Блюдо{dish} Количество {n}'
+#     return HttpResponse(msg)
