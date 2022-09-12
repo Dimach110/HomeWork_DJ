@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-
+import configparser
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -48,14 +48,23 @@ MIDDLEWARE = [
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# config = configparser.ConfigParser()
+# config.read('settings/set.ini')
+# login_db = config['Data_Base']['login']
+# pass_db = config['Data_Base']['pass']
+# print(login_db)
+# print(pass_db)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'netology_import_phones',
+        'NAME': 'phonedb',
         'HOST': '127.0.0.1',
         'PORT': '5432',
-        'USER': 'postgres',
-        'PASSWORD': 'ваш пароль',
+        'USER': 'user2',
+        'PASSWORD': 'psqluser2',
+        # 'USER': login_db,
+        # 'PASSWORD': pass_db,
     }
 }
 
