@@ -6,10 +6,13 @@ from .models import Student
 
 def students_list(request):
     template = 'school/students_list.html'
-    context = {}
-
-    # используйте этот параметр для упорядочивания результатов
-    # https://docs.djangoproject.com/en/2.2/ref/models/querysets/#django.db.models.query.QuerySet.order_by
-    ordering = 'group'
-
+    ordering = request.GET.get('order', 'group') # 'group' -  указано значение по умолчанию
+    # print(ordering)
+    # if not ordering:
+    #     ordering = 'group'
+    print(ordering)
+    students = Student.objects.order_by(ordering).all()
+    context = {
+        'object_list': students,
+    }
     return render(request, template, context)
