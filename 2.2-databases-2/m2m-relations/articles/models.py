@@ -2,7 +2,7 @@ from django.db import models
 
 class Tag(models.Model):
 
-    name = models.CharField(max_length=64, verbose_name='Тип')
+    name = models.CharField(max_length=64, verbose_name='Раздел')
 
     def __str__(self):
         return self.name
@@ -10,7 +10,6 @@ class Tag(models.Model):
     class Meta:
         verbose_name = 'Раздел'
         verbose_name_plural = 'Разделы'
-
 
 class Article(models.Model):
 
@@ -37,6 +36,6 @@ class Scope(models.Model):
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
-        ordering = ['-is_main'] # Сортируем при запросе по основному тегу
+        ordering = ['-is_main', 'tag'] # Сортируем при запросе по основному тегу, затем по алфавиту
 
 
