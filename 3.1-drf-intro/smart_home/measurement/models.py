@@ -18,6 +18,7 @@ class Measurement(models.Model):
     temp = models.IntegerField(verbose_name='Значение температуры')
     date = models.DateTimeField(auto_now=True, verbose_name='дата измерения')
 
+
     def __str__(self):
         return self.temp
 
