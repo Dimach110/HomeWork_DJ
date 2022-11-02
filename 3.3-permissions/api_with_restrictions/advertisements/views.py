@@ -14,8 +14,6 @@ class AdvertisementViewSet(ModelViewSet):
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
     filterset_class = AdvertisementFilter
-    filters_backends = [DjangoFilterBackend]
-    filterset_fields = ['creator']
     throttle_classes = [UserRateThrottle, AnonRateThrottle]
 
     # search_fields = ['creator', 'created_at', 'status']
